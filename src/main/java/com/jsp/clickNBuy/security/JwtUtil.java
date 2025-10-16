@@ -33,7 +33,7 @@ public class JwtUtil {
 
 		return Jwts.builder().claims(claims).subject(userDetails.getUsername())
 				.issuedAt(new Date(System.currentTimeMillis()))
-				.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
+				.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 1 hour
 				.signWith(key).compact();
 	}
 	public String extractUsername(String token) {
