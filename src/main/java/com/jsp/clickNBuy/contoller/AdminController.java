@@ -38,7 +38,7 @@ public class AdminController {
 	
 	@DeleteMapping("/category/{id}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	public ResponseDto deleteCategory(@PathVariable Long id, @RequestBody Category category ) {
+	public ResponseDto deleteCategory(@PathVariable Long id ) {
 		return adminService.deleteCategory(id);
 	}
 	@PutMapping("/category/{id}")

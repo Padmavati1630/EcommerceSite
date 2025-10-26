@@ -64,7 +64,8 @@ public class SellerServiceImpl implements SellerService {
 		User user=userDao.findbyEmail(principal.getName());
 		Sort sort= desc ? Sort.by(sortBy).descending() : Sort.by(sortBy);
 		Pageable pageable = PageRequest.of(page - 1, size, sort);
-		return new ResponseDto("Product Found", pageable);
+		List<Product> products = sellerDao.fetchProducts(user, pageable);
+		return new ResponseDto("Product Found", products);
 	}
 
 	@Override

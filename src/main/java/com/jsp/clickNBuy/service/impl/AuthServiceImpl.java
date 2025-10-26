@@ -134,7 +134,7 @@ public class AuthServiceImpl implements AuthService {
 		
 		User user= userDao.findbyEmail(loginDto.getEmail());
 		Map<String, Object> response=new HashMap<>();
-		response.put(token, token);
+		response.put("token", token);
 		response.put("name", user.getName());
 		response.put("email", user.getEmail());
 		response.put("role", user.getRole());

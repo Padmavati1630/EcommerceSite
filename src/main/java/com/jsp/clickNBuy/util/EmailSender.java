@@ -51,7 +51,7 @@ public class EmailSender {
 					+ ", It is valid only for 5 mins, You can use this for Updating Password");
 			mailSender.send(message);
 		}catch (Exception e) {
-			System.out.println("The Otp is :"+otp);
+			System.err.println("The Otp is :"+otp);
 		}
 		
 	}
