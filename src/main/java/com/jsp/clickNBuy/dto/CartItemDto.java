@@ -3,7 +3,7 @@ package com.jsp.clickNBuy.dto;
 import lombok.Data;
 
 @Data
-public class AddProductDto {
+public class CartItemDto {
 	private Long id;
 	private Long quantity;
 }

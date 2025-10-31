@@ -10,7 +10,7 @@ import com.jsp.clickNBuy.entity.Product;
 import com.jsp.clickNBuy.entity.User;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-	
+
 	boolean existsByNameAndBrandAndPrice(String name, String brand, Double price);
 
 	List<Product> findByUser(User user, Pageable pageable);
@@ -19,5 +19,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	Optional<Product> findByIdAndApprovedTrue(Long id);
 
-	
+
 }

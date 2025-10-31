@@ -17,6 +17,7 @@ public class EmailSender {
 	@Async
 	public void sendOpt(String email, int otp, String name) {
 		try {
+			System.err.println("Generated OTP for " + email + " : " + otp);
 			MimeMessage message=mailSender.createMimeMessage();
 			MimeMessageHelper helper=new MimeMessageHelper(message, true);
 			helper.setTo(email);
@@ -39,11 +40,13 @@ public class EmailSender {
 		} catch (Exception e) {
 			System.err.println("Email failed. OTP: " + otp);
 		}
-		
+
 	}
 	@Async
 	public void sendForgotOtp(String email, int otp, String name) {
 		try {
+			
+			System.err.println("Generated OTP for " + email + " : " + otp);
 			SimpleMailMessage message=new SimpleMailMessage();
 			message.setTo(email);
 			message.setSubject("Otp for Updating Password");
@@ -53,6 +56,6 @@ public class EmailSender {
 		}catch (Exception e) {
 			System.err.println("The Otp is :"+otp);
 		}
-		
+
 	}
 }

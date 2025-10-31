@@ -8,6 +8,7 @@ import java.util.concurrent.TimeoutException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -21,11 +22,11 @@ import com.jsp.clickNBuy.dto.ErrorDto;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorDto handle(MethodArgumentNotValidException exception) {
-		Map<String , String> errors = new HashMap<String, String>();
+		Map<String , String> errors = new HashMap<>();
 		for(FieldError error : exception.getBindingResult().getFieldErrors()) {
 			errors.put(error.getField(), error.getDefaultMessage());
 		}
@@ -46,7 +47,7 @@ public class GlobalExceptionHandler {
 	public ErrorDto handle(NullPointerException exception) {
 		return new ErrorDto("Sorry, Something went wrong, We will fix it");
 	}
-	
+
 	@ExceptionHandler(InputMismatchException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorDto handle(InputMismatchException exception) {
@@ -57,7 +58,7 @@ public class GlobalExceptionHandler {
 	public ErrorDto handle(BadCredentialsException exception) {
 		return new ErrorDto("Invalid Password");
 	}
-	
+
 	@ExceptionHandler(NoResourceFoundException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ErrorDto handle(NoResourceFoundException exception) {
@@ -88,6 +89,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(OutOfStockException.class)
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorDto handle(OutOfStockException exception) {
+		return new ErrorDto(exception.getMessage());
+	}
+	@ExceptionHandler(InternalAuthenticationServiceException.class)
+	@ResponseStatus(code = HttpStatus.FORBIDDEN)
+	public ErrorDto handle(InternalAuthenticationServiceException exception) {
 		return new ErrorDto(exception.getMessage());
 	}
 }

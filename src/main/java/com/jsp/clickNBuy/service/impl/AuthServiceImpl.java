@@ -47,18 +47,19 @@ public class AuthServiceImpl implements AuthService {
 		if(userDao.isEmailAndMobileUnique(userDto.getEmail(), userDto.getMobile())) {
 			int otp = new SecureRandom().nextInt(100000,1000000);
 			emailSender.sendOpt(userDto.getEmail(), otp, userDto.getName());
-			userDao.saveUser(new User(null, userDto.getName(), userDto.getEmail(), 
+			userDao.saveUser(new User(null, userDto.getName(), userDto.getEmail(),
 					encoder.encode(userDto.getPassword()), userDto.getMobile(), null, otp,
 					LocalDateTime.now().plusMinutes(5), Role.valueOf("ROLE_" + userDto.getRole().toUpperCase()), false,0,null));
 			return new ResponseDto("Otp Sent Success, Verify within 5 minutes", userDto);
 		}else {
-			if(!userDao.isEmailUnique(userDto.getEmail())) 
+			if(!userDao.isEmailUnique(userDto.getEmail())) {
 				throw new DataExistsException("Email Already Exists : "+ userDto.getEmail());
-			else
+			} else {
 				throw new DataExistsException("Mobile Already Exists : "+ userDto.getMobile());
+			}
 
 		}
-		 
+
 	}
 
 	@Override
@@ -91,7 +92,7 @@ public class AuthServiceImpl implements AuthService {
 		user.setLastOtpRequestTime(LocalDateTime.now());
 		user.setOtpExpiryTime(LocalDateTime.now().plusMinutes(5));
 		userDao.saveUser(user);
-		Map<String , String> map= new HashMap<String, String>();
+		Map<String , String> map= new HashMap<>();
 		map.put("email", email);
 		return new ResponseDto("Otp Resent Success valid only for 5 mintues", map);
 	}
@@ -122,7 +123,7 @@ public class AuthServiceImpl implements AuthService {
 		user.setOtp(otp);
 		user.setOtpExpiryTime(LocalDateTime.now().plusMinutes(5));
 		userDao.saveUser(user);
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("email", email);
 		return new ResponseDto("Otp Sent Success valid only for 5 minutes", map);
 	}
@@ -131,7 +132,7 @@ public class AuthServiceImpl implements AuthService {
 		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 		UserDetails userDetails = userDetailsService.loadUserByUsername(loginDto.getEmail());
 		String token = jwtUtil.generateToken(userDetails);
-		
+
 		User user= userDao.findbyEmail(loginDto.getEmail());
 		Map<String, Object> response=new HashMap<>();
 		response.put("token", token);

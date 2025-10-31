@@ -1,8 +1,7 @@
 package com.jsp.clickNBuy.service;
 
-import com.jsp.clickNBuy.entity.Category;
-
 import com.jsp.clickNBuy.dto.ResponseDto;
+import com.jsp.clickNBuy.entity.Category;
 
 public interface AdminService {
 
@@ -18,6 +17,6 @@ public interface AdminService {
 
 	ResponseDto changeProductStatus(Long id);
 
-	
+
 
 }

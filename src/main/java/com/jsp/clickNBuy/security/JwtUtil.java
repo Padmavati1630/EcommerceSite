@@ -4,7 +4,6 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,14 +14,13 @@ import com.jsp.clickNBuy.exception.GlobalExceptionHandler;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
 
 	private final Key key;
-	
+
 	public JwtUtil(@Value("${jwt.secret}") String secretKey, GlobalExceptionHandler globalExceptionHandler) {
 		this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
 	}

@@ -26,6 +26,6 @@ public class CustomerUserDetailsService implements UserDetailsService{
 		}
 		return new CustomerUser(user);
 	}
-	
-	
+
+
 }

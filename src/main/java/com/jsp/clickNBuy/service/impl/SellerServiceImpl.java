@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jsp.clickNBuy.dao.CategoryDao;
 import com.jsp.clickNBuy.dao.ProductDao;
-import com.jsp.clickNBuy.dao.SellerDao;
 import com.jsp.clickNBuy.dao.UserDao;
 import com.jsp.clickNBuy.dto.ProductDto;
 import com.jsp.clickNBuy.dto.ResponseDto;
@@ -29,21 +28,22 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class SellerServiceImpl implements SellerService {
-	
+
 	CategoryDao categoryDao;
 	ProductDao productDao;
 	UserDao userDao;
 	RestTemplate restTemplate;
-	
+
 	@Override
 	public ResponseDto deleteProduct(Long id, Principal principal) {
 		Product product = productDao.findProductById(id);
-		if (product.getUser().getEmail().equals(principal.getName()))
+		if (product.getUser().getEmail().equals(principal.getName())) {
 			productDao.deleteProduct(id);
-		else
+		} else {
 			throw new AuthorizationDeniedException("You can not deleted this product");
+		}
 		return new ResponseDto("Product Deleted Success", product);
-		
+
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public ResponseDto addProducts(Principal principal) {
 		Map<String, List<Map<String, Object>>> map = restTemplate.getForObject("https://dummyjson.com/products",Map.class);
-		List<Product> products = new ArrayList<Product>();
+		List<Product> products = new ArrayList<>();
 		for (Map<String, Object> productDto : map.get("products")) {
 			String category = (String) productDto.get("category");
 			String name = (String) productDto.get("title");
@@ -83,7 +83,7 @@ public class SellerServiceImpl implements SellerService {
 			String brand = (String) productDto.get("brand");
 			String imageLink = ((List<String>) productDto.get("images")).get(0);
 			Double price = ((Double) productDto.get("price")) * 87.87;
-			Integer stock = (Integer) productDto.get("stock");
+			Long stock = (Long) productDto.get("stock");
 
 			if (categoryDao.isCategoryPresent(category)) {
 				if (productDao.isProductUnique(name, brand, price)) {
@@ -107,8 +107,9 @@ public class SellerServiceImpl implements SellerService {
 			product.setId(id);
 			product.setUser(existingProduct.getUser());
 			productDao.saveProduct(product);
-		} else
+		} else {
 			throw new AuthorizationDeniedException("You can not deleted this product");
+		}
 		return new ResponseDto("Product Updated Success", product);
 	}
 }

@@ -13,7 +13,7 @@ public interface AuthService {
 
 	ResponseDto register(UserDto userDto);
 
-	
+
 	ResponseDto verifyOtp(OtpDto otpDto) throws TimeoutException;
 
 

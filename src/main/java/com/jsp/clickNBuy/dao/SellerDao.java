@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
 import com.jsp.clickNBuy.entity.Category;
 import com.jsp.clickNBuy.entity.Product;
 import com.jsp.clickNBuy.entity.User;
@@ -38,10 +39,11 @@ public class SellerDao {
 
 	public List<Product> fetchProducts(User user, Pageable pageable) {
 		List<Product> products = productRepository.findByUser(user,pageable);
-		if (products.isEmpty())
+		if (products.isEmpty()) {
 			throw new DataNotFoundException("No Products Present");
-		else
+		} else {
 			return products;
+		}
 	}
 
 	public Product findProductById(Long id) {

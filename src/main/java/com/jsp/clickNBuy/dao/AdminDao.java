@@ -26,10 +26,11 @@ public class AdminDao {
 
 	public List<Category> findAllCategory() {
 		List<Category> list = categoryRepository.findAll();
-		if (list.isEmpty())
+		if (list.isEmpty()) {
 			throw new DataNotFoundException("No Categories Present");
-		else
+		} else {
 			return list;
+		}
 	}
 
 	public void deleteCategory(Long id) {
@@ -41,6 +42,6 @@ public class AdminDao {
 		return categoryRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Category Not Found"));
 	}
 
-	
-	
+
+
 }

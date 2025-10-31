@@ -18,13 +18,13 @@ public class UserDto {
 	private String name;
 	@NotEmpty(message ="Email is required")
 	@Email(message="Email Should be Proper")
-	private String email; 
+	private String email;
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$", message = "Password should contain one uppercase lowercase special character and number with min 8 digits")
 	private String password;
 	@DecimalMin(value = "6000000000",message = "Enter Proper Moblie Number")
 	@DecimalMax(value = "9999999999",message = "Enter Proper Moblie Number")
 	private Long mobile;
-	@NotEmpty(message="Role should be present") 
+	@NotEmpty(message="Role should be present")
 	private String role;
-	
+
 }

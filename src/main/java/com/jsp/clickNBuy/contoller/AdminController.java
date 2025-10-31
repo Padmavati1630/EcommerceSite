@@ -1,6 +1,5 @@
 package com.jsp.clickNBuy.contoller;
 
-import com.jsp.clickNBuy.entity.Category;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jsp.clickNBuy.dto.ResponseDto;
+import com.jsp.clickNBuy.entity.Category;
 import com.jsp.clickNBuy.service.AdminService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,23 +25,23 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("/api/v1/admin")
 public class AdminController {
-	
+
 	AdminService adminService;
-	
+
 	@PostMapping("/category")
 	@Operation(summary = "Add Category", security = @SecurityRequirement(name = "bearerAuth"))
 	@ResponseStatus(value = HttpStatus.OK)
 	public ResponseDto addCategory(@RequestBody Category category) {
 		return adminService.addCategory(category);
 	}
-	
+
 	@GetMapping("/category")
 	@Operation(summary = "Fetch All Category", security = @SecurityRequirement(name = "bearerAuth"))
 	@ResponseStatus(value = HttpStatus.OK)
 	public ResponseDto viewCategories() {
 		return adminService.viewCatogeries();
 	}
-	
+
 	@DeleteMapping("/category/{id}")
 	@Operation(summary = "Delete Category",security = @SecurityRequirement(name = "bearerAuth"))
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)

@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 public class UserDao {
 
 	UserRepository userRepository;
-	
+
 	public User saveUser(User user) {
 		return userRepository.save(user);
 	}

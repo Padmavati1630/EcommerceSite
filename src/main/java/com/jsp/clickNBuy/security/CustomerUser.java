@@ -12,7 +12,7 @@ import com.jsp.clickNBuy.entity.User;
 public class CustomerUser implements UserDetails {
 
 	User  user;
-	
+
 	public CustomerUser(User user) {
 		this.user = user;
 	}

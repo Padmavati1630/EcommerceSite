@@ -26,9 +26,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("api/v1/auth")
 public class AuthController {
-	
+
 	AuthService authService;
-	
+
 	@PostMapping("/register")
 	@Operation(summary = "Register an User or Admin")
 	@ResponseStatus(code = HttpStatus.CREATED)

@@ -19,6 +19,6 @@ public interface SellerService {
 	ResponseDto addProducts(Principal principal);
 
 	ResponseDto updateProduct(Long id, Product product, Principal principal);
-	
+
 
 }

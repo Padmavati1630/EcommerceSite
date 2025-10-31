@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CategoryDao {
 	CategoryRepository categoryRepository;
-	
+
 	public Category getCategory(String category) {
 		return categoryRepository.findByName(category);
 	}
@@ -22,32 +22,33 @@ public class CategoryDao {
 	public boolean isCategoryPresent(String category) {
 		return categoryRepository.existsByName(category);
 	}
-	
+
 	public boolean isCategoryUnique(String name) {
 		return !categoryRepository.existsByName(name);
 	}
 
 	public void save(Category category) {
 		categoryRepository.save(category);
-		
+
 	}
 
 	public List<Category> findAllCategory() {
 		List<Category> list = categoryRepository.findAll();
-		if (list.isEmpty())
+		if (list.isEmpty()) {
 			throw new DataNotFoundException("No Categories Present");
-		else
+		} else {
 			return list;
+		}
 	}
 
 	public void deleteCategory(Long id) {
 		findCategoryById(id);
 		categoryRepository.deleteById(id);
-		
+
 	}
 
 	public Category findCategoryById(Long id) {
 		return categoryRepository.findById(id).orElseThrow(() -> new DataNotFoundException("Category Not Found"));
-		
+
 	}
 }

@@ -1,7 +1,5 @@
 package com.jsp.clickNBuy.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,23 +11,15 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+@NoArgsConstructor
+public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
-	private String description;
-	private Double price;
-	private Long stock;
-	private String imageLink;
 	@ManyToOne
-	private Category category;
-	private String brand;
-	@JsonIgnore
-	private boolean approved;
-
+	private Product product;
+	private Long quantity;
 	@ManyToOne
-	User user;
+	private User user;
 }

@@ -1,8 +1,5 @@
 package com.jsp.clickNBuy.service.impl;
 
-import com.jsp.clickNBuy.entity.Category;
-import com.jsp.clickNBuy.entity.Product;
-
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
@@ -10,10 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.jsp.clickNBuy.dao.AdminDao;
 import com.jsp.clickNBuy.dao.CategoryDao;
 import com.jsp.clickNBuy.dao.ProductDao;
 import com.jsp.clickNBuy.dto.ResponseDto;
+import com.jsp.clickNBuy.entity.Category;
+import com.jsp.clickNBuy.entity.Product;
 import com.jsp.clickNBuy.exception.DataExistsException;
 import com.jsp.clickNBuy.service.AdminService;
 
@@ -22,7 +20,7 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class AdminServiceImpl implements AdminService {
-	
+
 	CategoryDao categoryDao;
 	ProductDao productDao;
 
@@ -31,8 +29,9 @@ public class AdminServiceImpl implements AdminService {
 		if (categoryDao.isCategoryUnique(category.getName())) {
 			categoryDao.save(category);
 			return new ResponseDto("Category Added Success", category);
-		} else
+		} else {
 			throw new DataExistsException(category.getName() + " Already Present");
+		}
 	}
 
 	@Override
